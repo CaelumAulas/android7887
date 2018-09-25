@@ -11,29 +11,29 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.List;
+
+import br.com.caelum.cadastro.bancodedadoos.AlunoDAO;
+import br.com.caelum.cadastro.modelo.Aluno;
+
 import static android.view.View.OnClickListener;
 import static android.widget.AdapterView.OnItemClickListener;
 import static android.widget.AdapterView.OnItemLongClickListener;
 
 public class ListaAlunosActivity extends AppCompatActivity {
 
+
+    private ListView lista;
+
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
 
-        final String[] alunos = {"Aldriano", "Andrea",
-                "Heitor", "João", "Gui"};
-
-        final ListView lista = findViewById(R.id.lista_alunos);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, alunos);
-
-        lista.setAdapter(adapter);
+        this.lista = findViewById(R.id.lista_alunos);
 
         final Context self = this;
-
 
         lista.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -48,10 +48,9 @@ public class ListaAlunosActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapter, View item, int posicao, long id) {
 
-                String nome = (String) adapter.getItemAtPosition(posicao);
+                Aluno aluno = (Aluno) adapter.getItemAtPosition(posicao);
 
-
-                Toast.makeText(self, nome, Toast.LENGTH_SHORT).show();
+                Toast.makeText(self, aluno.getNome(), Toast.LENGTH_SHORT).show();
 
                 return true;
             }
@@ -70,4 +69,33 @@ public class ListaAlunosActivity extends AppCompatActivity {
         });
 
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        carregaLista();
+
+    }
+
+
+    public void carregaLista() {
+
+        CadastroApplication application =
+                (CadastroApplication) getApplication();
+
+        AlunoDAO dao = application.getAlunoDAO();
+
+        List<Aluno> alunos = dao.buscaAlunos();
+
+        ArrayAdapter<Aluno> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, alunos);
+
+
+        lista.setAdapter(adapter);
+
+    }
 }
+
+
