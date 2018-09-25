@@ -2,6 +2,8 @@ package br.com.caelum.cadastro;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import static android.view.View.OnClickListener;
 import static android.widget.AdapterView.OnItemClickListener;
 import static android.widget.AdapterView.OnItemLongClickListener;
 
@@ -54,6 +57,16 @@ public class ListaAlunosActivity extends AppCompatActivity {
             }
         });
 
+
+        FloatingActionButton botaoAdicionar = findViewById(R.id.adicionar);
+
+        botaoAdicionar.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Clicou no botão", Snackbar.LENGTH_LONG)
+                        .show();
+            }
+        });
 
     }
 }
