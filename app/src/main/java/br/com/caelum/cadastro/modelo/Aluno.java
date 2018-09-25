@@ -1,7 +1,12 @@
 package br.com.caelum.cadastro.modelo;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity
 public class Aluno {
 
+    @PrimaryKey(autoGenerate = true)
     private Integer id;
     private String nome;
     private String email;

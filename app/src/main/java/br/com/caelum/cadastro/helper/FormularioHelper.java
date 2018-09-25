@@ -1,5 +1,6 @@
 package br.com.caelum.cadastro.helper;
 
+import android.support.design.widget.TextInputLayout;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
@@ -9,6 +10,7 @@ import br.com.caelum.cadastro.modelo.Aluno;
 
 public class FormularioHelper {
 
+    private TextInputLayout tilNome;
     private EditText campoNome;
     private EditText campoTelefone;
     private EditText campoEmail;
@@ -18,6 +20,7 @@ public class FormularioHelper {
 
     public FormularioHelper(FormularioActivity activity) {
 
+        this.tilNome = activity.findViewById(R.id.formulario_nome_til);
         this.campoNome = activity.findViewById(R.id.formulario_nome);
         this.campoTelefone = activity.findViewById(R.id.formulario_telefone);
         this.campoEmail = activity.findViewById(R.id.formulario_email);
@@ -37,5 +40,18 @@ public class FormularioHelper {
 
         return aluno;
 
+    }
+
+
+    public boolean alunoEstaValido() {
+
+        String nome = campoNome.getText().toString();
+
+        return !nome.trim().isEmpty();
+    }
+
+
+    public void mostraErro() {
+        tilNome.setError("Campo obrigatório");
     }
 }

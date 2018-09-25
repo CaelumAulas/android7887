@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import br.com.caelum.cadastro.bancodedadoos.AlunoDAO;
 import br.com.caelum.cadastro.helper.FormularioHelper;
 import br.com.caelum.cadastro.modelo.Aluno;
 
@@ -47,14 +48,19 @@ public class FormularioActivity extends AppCompatActivity {
 
             case R.id.menu_formulario_salvar:
 
+                if (helper.alunoEstaValido()) {
 
-                Aluno aluno = helper.pegaAlunoDoFormulario();
+                    Aluno aluno = helper.pegaAlunoDoFormulario();
 
-                //TODO salvar o aluno na vida
+                    salva(aluno);
 
-                Toast.makeText(this, aluno.getNome(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, aluno.getNome(), Toast.LENGTH_SHORT).show();
 
-                finish();
+                    finish();
+
+                } else {
+                    helper.mostraErro();
+                }
                 return true;
 
             case android.R.id.home:
@@ -64,5 +70,14 @@ public class FormularioActivity extends AppCompatActivity {
             default:
                 return false;
         }
+    }
+
+    private void salva(Aluno aluno) {
+        CadastroApplication application =
+                (CadastroApplication) getApplication();
+
+        AlunoDAO alunoDAO = application.getAlunoDAO();
+
+        alunoDAO.insere(aluno);
     }
 }
