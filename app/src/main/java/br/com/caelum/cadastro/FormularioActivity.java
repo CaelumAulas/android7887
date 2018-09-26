@@ -53,14 +53,15 @@ public class FormularioActivity extends AppCompatActivity {
                 Intent vaiParaCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 
-                caminhoFoto = getExternalFilesDir("foto") + "/" + System.currentTimeMillis() + ".jpg";
+                caminhoFoto = getExternalFilesDir("foto") + "/"
+                        + System.currentTimeMillis() + ".jpg";
+
                 File arquivo = new File(caminhoFoto);
                 Uri localFoto = Uri.fromFile(arquivo);
 
                 vaiParaCamera.putExtra(MediaStore.EXTRA_OUTPUT, localFoto);
 
-                startActivity(vaiParaCamera);
-
+                startActivityForResult(vaiParaCamera, 1);
 
             }
         });
@@ -69,11 +70,14 @@ public class FormularioActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    @Nullable Intent data) {
 
-        if (caminhoFoto != null) {
-            helper.carregaFoto(caminhoFoto);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                helper.carregaFoto(caminhoFoto);
+            }
         }
     }
 

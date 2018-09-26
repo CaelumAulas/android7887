@@ -56,7 +56,6 @@ public class FormularioHelper {
 
     public void carregaFoto(String caminhoFoto) {
 
-
         Bitmap bitmap = BitmapFactory.decodeFile(caminhoFoto);
 
         Bitmap bitmapTratado = Bitmap.createScaledBitmap(bitmap,
