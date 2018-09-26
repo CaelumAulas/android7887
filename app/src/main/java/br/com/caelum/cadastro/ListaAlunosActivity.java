@@ -1,10 +1,16 @@
 package br.com.caelum.cadastro;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
@@ -14,7 +20,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -29,6 +34,7 @@ import static android.widget.AdapterView.OnItemClickListener;
 public class ListaAlunosActivity extends AppCompatActivity {
 
 
+    public static final int REQUEST_TELEFONE = 1;
     private ListView lista;
 
 
@@ -49,13 +55,11 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
                 Intent edicao = new Intent(self, FormularioActivity.class);
 
-                edicao.putExtra("chave",aluno);
+                edicao.putExtra("chave", aluno);
 
                 startActivity(edicao);
             }
         });
-
-
 
 
         FloatingActionButton botaoAdicionar = findViewById(R.id.adicionar);
@@ -117,9 +121,42 @@ public class ListaAlunosActivity extends AppCompatActivity {
         final Aluno aluno = (Aluno) lista.getItemAtPosition(posicao);
 
 
-        MenuItem deletar = menu.add("Deletar");
         MenuItem ligar = menu.add("Ligar");
         MenuItem sms = menu.add("SMS");
+        MenuItem mapa = menu.add("Ver no Mapa");
+        MenuItem deletar = menu.add("Deletar");
+
+
+        ligar.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                Intent fazLigacao = new Intent(Intent.ACTION_CALL);
+                fazLigacao.setData(Uri.parse("tel:" + aluno.getTelefone()));
+
+
+                if (ActivityCompat
+                        .checkSelfPermission(ListaAlunosActivity.this,
+                                Manifest.permission.CALL_PHONE) !=
+                        PackageManager.PERMISSION_GRANTED) {
+
+                    String[] permissoes = {Manifest.permission.CALL_PHONE};
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        requestPermissions(permissoes, REQUEST_TELEFONE);
+                    }
+
+                    return false;
+                }
+                startActivity(fazLigacao);
+                return false;
+            }
+        });
+
+
+        sms.setIntent(vaiParaSMS(aluno));
+
+        mapa.setIntent(vaiParaMapa(aluno));
 
         deletar.setOnMenuItemClickListener(new OnMenuItemClickListener() {
             @Override
@@ -150,6 +187,24 @@ public class ListaAlunosActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @NonNull
+    private Intent vaiParaMapa(Aluno aluno) {
+        Intent vaiParaMapa = new Intent(Intent.ACTION_VIEW);
+        String endereco = aluno.getEndereco();
+        Uri protocolo = Uri.parse("geo:0,0?q=" + endereco);
+        vaiParaMapa.setData(protocolo);
+        return vaiParaMapa;
+    }
+
+    @NonNull
+    private Intent vaiParaSMS(Aluno aluno) {
+        String telefone = aluno.getTelefone();
+        Intent vaiParaSMS = new Intent(Intent.ACTION_VIEW);
+        vaiParaSMS.setData(Uri.parse("sms:" + telefone));
+        vaiParaSMS.putExtra("sms_body", "Bla bl BL");
+        return vaiParaSMS;
     }
 
 
