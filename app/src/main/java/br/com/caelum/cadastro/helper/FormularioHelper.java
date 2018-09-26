@@ -16,9 +16,12 @@ public class FormularioHelper {
     private EditText campoEmail;
     private EditText campoEndereco;
     private RatingBar campoNota;
+    private Aluno aluno;
 
 
     public FormularioHelper(FormularioActivity activity) {
+
+        this.aluno = new Aluno();
 
         this.tilNome = activity.findViewById(R.id.formulario_nome_til);
         this.campoNome = activity.findViewById(R.id.formulario_nome);
@@ -30,7 +33,6 @@ public class FormularioHelper {
     }
 
     public Aluno pegaAlunoDoFormulario() {
-        Aluno aluno = new Aluno();
 
         aluno.setNome(campoNome.getText().toString());
         aluno.setEmail(campoEmail.getText().toString());
@@ -53,5 +55,16 @@ public class FormularioHelper {
 
     public void mostraErro() {
         tilNome.setError("Campo obrigatório");
+    }
+
+    public void populaOsCamposCom(Aluno aluno) {
+
+        this.aluno = aluno;
+
+        campoNome.setText(aluno.getNome());
+        campoEmail.setText(aluno.getEmail());
+        campoEndereco.setText(aluno.getEndereco());
+        campoTelefone.setText(aluno.getTelefone());
+        campoNota.setRating(aluno.getNota().floatValue());
     }
 }

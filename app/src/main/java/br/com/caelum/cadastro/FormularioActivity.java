@@ -1,5 +1,6 @@
 package br.com.caelum.cadastro;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -26,6 +27,15 @@ public class FormularioActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         helper = new FormularioHelper(this);
+
+        Intent intent = getIntent();
+
+        if (intent.hasExtra("chave")) {
+            Aluno aluno = (Aluno) intent.getSerializableExtra("chave");
+            helper.populaOsCamposCom(aluno);
+        }
+
+
 
     }
 
@@ -78,6 +88,10 @@ public class FormularioActivity extends AppCompatActivity {
 
         AlunoDAO alunoDAO = application.getAlunoDAO();
 
-        alunoDAO.insere(aluno);
+        if (aluno.getId() == null) {
+            alunoDAO.insere(aluno);
+        } else {
+            alunoDAO.atualiza(aluno);
+        }
     }
 }
