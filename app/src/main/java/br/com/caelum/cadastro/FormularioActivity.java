@@ -1,10 +1,10 @@
 package br.com.caelum.cadastro;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -13,15 +13,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.io.File;
+
 import br.com.caelum.cadastro.bancodedadoos.AlunoDAO;
 import br.com.caelum.cadastro.helper.FormularioHelper;
 import br.com.caelum.cadastro.modelo.Aluno;
 
-import static android.view.View.*;
+import static android.view.View.OnClickListener;
 
 public class FormularioActivity extends AppCompatActivity {
 
     private FormularioHelper helper;
+    private String caminhoFoto;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +52,13 @@ public class FormularioActivity extends AppCompatActivity {
 
                 Intent vaiParaCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
+
+                caminhoFoto = getExternalFilesDir("foto") + "/" + System.currentTimeMillis() + ".jpg";
+                File arquivo = new File(caminhoFoto);
+                Uri localFoto = Uri.fromFile(arquivo);
+
+                vaiParaCamera.putExtra(MediaStore.EXTRA_OUTPUT, localFoto);
+
                 startActivity(vaiParaCamera);
 
 
@@ -57,6 +67,15 @@ public class FormularioActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (caminhoFoto != null) {
+            helper.carregaFoto(caminhoFoto);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

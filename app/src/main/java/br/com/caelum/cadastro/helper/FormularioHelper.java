@@ -1,9 +1,11 @@
 package br.com.caelum.cadastro.helper;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
-import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 
 import br.com.caelum.cadastro.FormularioActivity;
@@ -19,6 +21,8 @@ public class FormularioHelper {
     private EditText campoEmail;
     private EditText campoEndereco;
     private RatingBar campoNota;
+    private ImageView foto;
+
     private Aluno aluno;
 
 
@@ -27,6 +31,7 @@ public class FormularioHelper {
         this.aluno = new Aluno();
 
         this.botaoFoto = activity.findViewById(R.id.formulario_botao_foto);
+        this.foto = activity.findViewById(R.id.formulario_foto);
         this.tilNome = activity.findViewById(R.id.formulario_nome_til);
         this.campoNome = activity.findViewById(R.id.formulario_nome);
         this.campoTelefone = activity.findViewById(R.id.formulario_telefone);
@@ -45,6 +50,19 @@ public class FormularioHelper {
         aluno.setNota((double) campoNota.getRating());
 
         return aluno;
+
+    }
+
+
+    public void carregaFoto(String caminhoFoto) {
+
+
+        Bitmap bitmap = BitmapFactory.decodeFile(caminhoFoto);
+
+        Bitmap bitmapTratado = Bitmap.createScaledBitmap(bitmap,
+                bitmap.getWidth(), bitmap.getHeight(), true);
+
+        foto.setImageBitmap(bitmapTratado);
 
     }
 
