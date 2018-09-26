@@ -2,17 +2,22 @@ package br.com.caelum.cadastro;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import br.com.caelum.cadastro.bancodedadoos.AlunoDAO;
 import br.com.caelum.cadastro.helper.FormularioHelper;
 import br.com.caelum.cadastro.modelo.Aluno;
+
+import static android.view.View.*;
 
 public class FormularioActivity extends AppCompatActivity {
 
@@ -36,6 +41,19 @@ public class FormularioActivity extends AppCompatActivity {
         }
 
 
+
+
+        helper.getBotaoFoto().setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent vaiParaCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                startActivity(vaiParaCamera);
+
+
+            }
+        });
 
     }
 

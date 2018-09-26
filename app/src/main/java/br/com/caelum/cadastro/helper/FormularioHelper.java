@@ -1,6 +1,8 @@
 package br.com.caelum.cadastro.helper;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
@@ -10,6 +12,7 @@ import br.com.caelum.cadastro.modelo.Aluno;
 
 public class FormularioHelper {
 
+    private FloatingActionButton botaoFoto;
     private TextInputLayout tilNome;
     private EditText campoNome;
     private EditText campoTelefone;
@@ -23,6 +26,7 @@ public class FormularioHelper {
 
         this.aluno = new Aluno();
 
+        this.botaoFoto = activity.findViewById(R.id.formulario_botao_foto);
         this.tilNome = activity.findViewById(R.id.formulario_nome_til);
         this.campoNome = activity.findViewById(R.id.formulario_nome);
         this.campoTelefone = activity.findViewById(R.id.formulario_telefone);
@@ -66,5 +70,9 @@ public class FormularioHelper {
         campoEndereco.setText(aluno.getEndereco());
         campoTelefone.setText(aluno.getTelefone());
         campoNota.setRating(aluno.getNota().floatValue());
+    }
+
+    public FloatingActionButton getBotaoFoto() {
+        return botaoFoto;
     }
 }
