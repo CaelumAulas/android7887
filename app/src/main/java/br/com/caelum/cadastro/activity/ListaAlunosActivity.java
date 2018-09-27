@@ -20,7 +20,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -30,7 +29,7 @@ import br.com.caelum.cadastro.application.CadastroApplication;
 import br.com.caelum.cadastro.bancodedadoos.AlunoDAO;
 import br.com.caelum.cadastro.converter.AlunoConverter;
 import br.com.caelum.cadastro.modelo.Aluno;
-import br.com.caelum.cadastro.servicos.WebClient;
+import br.com.caelum.cadastro.servicos.BuscaMediaTask;
 
 import static android.view.MenuItem.OnMenuItemClickListener;
 import static android.view.View.OnClickListener;
@@ -106,11 +105,9 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
                 String json = converter.toJSON(alunos);
 
-                WebClient webClient = new WebClient();
-                String media = webClient.buscaMedia(json);
+                BuscaMediaTask task = new BuscaMediaTask(this);
 
-
-                Toast.makeText(this, media, Toast.LENGTH_SHORT).show();
+                task.execute(json);
 
         }
 
