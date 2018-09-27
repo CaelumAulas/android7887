@@ -18,11 +18,11 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.List;
 
+import br.com.caelum.cadastro.adapter.AlunoAdapter;
 import br.com.caelum.cadastro.bancodedadoos.AlunoDAO;
 import br.com.caelum.cadastro.modelo.Aluno;
 
@@ -93,9 +93,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
         List<Aluno> alunos = dao.buscaAlunos();
 
-        ArrayAdapter<Aluno> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, alunos);
-
+        AlunoAdapter adapter = new AlunoAdapter(alunos, this);
 
         lista.setAdapter(adapter);
 
