@@ -24,4 +24,7 @@ public interface AlunoDAO {
 
     @Delete
     void deleta(Aluno aluno);
+
+    @Query("select count(*) from Aluno where telefone = :telefone ")
+    Integer existeTelefone(String telefone);
 }

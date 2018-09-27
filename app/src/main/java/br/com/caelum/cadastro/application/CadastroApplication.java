@@ -13,6 +13,7 @@ public class CadastroApplication extends Application {
 
     private AlunoDAO alunoDAO;
 
+
     @Override
     public void onCreate() {
         super.onCreate();
