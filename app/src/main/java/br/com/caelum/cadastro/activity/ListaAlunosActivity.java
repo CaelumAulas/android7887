@@ -15,17 +15,20 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
-import br.com.caelum.cadastro.application.CadastroApplication;
 import br.com.caelum.cadastro.R;
 import br.com.caelum.cadastro.adapter.AlunoAdapter;
+import br.com.caelum.cadastro.application.CadastroApplication;
 import br.com.caelum.cadastro.bancodedadoos.AlunoDAO;
+import br.com.caelum.cadastro.converter.AlunoConverter;
 import br.com.caelum.cadastro.modelo.Aluno;
 
 import static android.view.MenuItem.OnMenuItemClickListener;
@@ -79,6 +82,36 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_lista_alunos, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        switch (item.getItemId()){
+
+            case R.id.menu_lista_media:
+
+                AlunoDAO alunoDAO = getAlunoDAO();
+                List<Aluno> alunos = alunoDAO.buscaAlunos();
+
+                AlunoConverter converter = new AlunoConverter();
+
+                String json = converter.toJSON(alunos);
+
+                Toast.makeText(this, json, Toast.LENGTH_SHORT).show();
+
+        }
+
+        return true;
+
+    }
 
     @Override
     protected void onResume() {
