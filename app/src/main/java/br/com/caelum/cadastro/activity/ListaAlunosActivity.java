@@ -30,6 +30,7 @@ import br.com.caelum.cadastro.application.CadastroApplication;
 import br.com.caelum.cadastro.bancodedadoos.AlunoDAO;
 import br.com.caelum.cadastro.converter.AlunoConverter;
 import br.com.caelum.cadastro.modelo.Aluno;
+import br.com.caelum.cadastro.servicos.WebClient;
 
 import static android.view.MenuItem.OnMenuItemClickListener;
 import static android.view.View.OnClickListener;
@@ -105,7 +106,11 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
                 String json = converter.toJSON(alunos);
 
-                Toast.makeText(this, json, Toast.LENGTH_SHORT).show();
+                WebClient webClient = new WebClient();
+                String media = webClient.buscaMedia(json);
+
+
+                Toast.makeText(this, media, Toast.LENGTH_SHORT).show();
 
         }
 
