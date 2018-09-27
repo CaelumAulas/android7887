@@ -14,6 +14,7 @@ public class Aluno implements Serializable {
     private String email;
     private String telefone;
     private String endereco;
+    private String caminhoFoto;
     private Double nota;
 
     public Integer getId() {
@@ -68,5 +69,13 @@ public class Aluno implements Serializable {
     @Override
     public String toString() {
         return nome;
+    }
+
+    public String getCaminhoFoto() {
+        return caminhoFoto;
+    }
+
+    public void setCaminhoFoto(String caminhoFoto) {
+        this.caminhoFoto = caminhoFoto;
     }
 }

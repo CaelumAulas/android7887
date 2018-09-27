@@ -48,6 +48,7 @@ public class FormularioHelper {
         aluno.setEndereco(campoEndereco.getText().toString());
         aluno.setTelefone(campoTelefone.getText().toString());
         aluno.setNota((double) campoNota.getRating());
+        aluno.setCaminhoFoto((String) foto.getTag());
 
         return aluno;
 
@@ -62,6 +63,8 @@ public class FormularioHelper {
                 bitmap.getWidth(), bitmap.getHeight(), true);
 
         foto.setImageBitmap(bitmapTratado);
+
+        foto.setTag(caminhoFoto);
 
     }
 
@@ -87,6 +90,9 @@ public class FormularioHelper {
         campoEndereco.setText(aluno.getEndereco());
         campoTelefone.setText(aluno.getTelefone());
         campoNota.setRating(aluno.getNota().floatValue());
+        if (aluno.getCaminhoFoto() != null) {
+            carregaFoto(aluno.getCaminhoFoto());
+        }
     }
 
     public FloatingActionButton getBotaoFoto() {
