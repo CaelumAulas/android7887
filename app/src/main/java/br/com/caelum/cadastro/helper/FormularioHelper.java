@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 
-import br.com.caelum.cadastro.FormularioActivity;
+import br.com.caelum.cadastro.activity.FormularioActivity;
 import br.com.caelum.cadastro.R;
 import br.com.caelum.cadastro.modelo.Aluno;
 

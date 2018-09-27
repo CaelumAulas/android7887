@@ -1,4 +1,4 @@
-package br.com.caelum.cadastro;
+package br.com.caelum.cadastro.application;
 
 import android.app.Application;
 import android.arch.persistence.db.SupportSQLiteDatabase;

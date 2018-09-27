@@ -1,4 +1,4 @@
-package br.com.caelum.cadastro;
+package br.com.caelum.cadastro.activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import java.io.File;
 
+import br.com.caelum.cadastro.application.CadastroApplication;
+import br.com.caelum.cadastro.R;
 import br.com.caelum.cadastro.bancodedadoos.AlunoDAO;
 import br.com.caelum.cadastro.helper.FormularioHelper;
 import br.com.caelum.cadastro.modelo.Aluno;

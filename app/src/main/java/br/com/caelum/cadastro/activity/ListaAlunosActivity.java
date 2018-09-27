@@ -1,4 +1,4 @@
-package br.com.caelum.cadastro;
+package br.com.caelum.cadastro.activity;
 
 import android.Manifest;
 import android.content.Context;
@@ -22,6 +22,8 @@ import android.widget.ListView;
 
 import java.util.List;
 
+import br.com.caelum.cadastro.application.CadastroApplication;
+import br.com.caelum.cadastro.R;
 import br.com.caelum.cadastro.adapter.AlunoAdapter;
 import br.com.caelum.cadastro.bancodedadoos.AlunoDAO;
 import br.com.caelum.cadastro.modelo.Aluno;
