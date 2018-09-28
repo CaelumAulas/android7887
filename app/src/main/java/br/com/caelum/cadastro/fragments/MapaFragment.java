@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 import br.com.caelum.cadastro.application.CadastroApplication;
+import br.com.caelum.cadastro.gps.GPS;
 import br.com.caelum.cadastro.modelo.Aluno;
 
 public class MapaFragment extends SupportMapFragment {
@@ -25,6 +26,7 @@ public class MapaFragment extends SupportMapFragment {
         getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
+                new GPS(getContext(), googleMap).inicializaBusca();
 
                 CadastroApplication application = (CadastroApplication) getActivity().getApplication();
 
