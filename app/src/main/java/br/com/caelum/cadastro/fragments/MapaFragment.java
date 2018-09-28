@@ -4,7 +4,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.support.annotation.NonNull;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -35,16 +34,9 @@ public class MapaFragment extends SupportMapFragment {
                 try {
                     for (Aluno aluno : alunos) {
 
-                        LatLng coordenada = pegaCoordenada(geocoder, aluno);
-
-                        MarkerOptions marcador = new MarkerOptions();
-
-                        marcador.position(coordenada);
-                        marcador.title(aluno.getNome());
-                        marcador.snippet(aluno.getEndereco());
+                        MarkerOptions marcador = criaMarcador(geocoder, aluno);
 
                         googleMap.addMarker(marcador);
-                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordenada, 15.0F));
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -53,6 +45,18 @@ public class MapaFragment extends SupportMapFragment {
 
             }
         });
+    }
+
+    @NonNull
+    private MarkerOptions criaMarcador(Geocoder geocoder, Aluno aluno) throws IOException {
+        LatLng coordenada = pegaCoordenada(geocoder, aluno);
+
+        MarkerOptions marcador = new MarkerOptions();
+
+        marcador.position(coordenada);
+        marcador.title(aluno.getNome());
+        marcador.snippet(aluno.getEndereco());
+        return marcador;
     }
 
     @NonNull
