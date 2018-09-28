@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import br.com.caelum.cadastro.R;
 import br.com.caelum.cadastro.fragments.DetalhesProvaFragment;
 import br.com.caelum.cadastro.fragments.ListaProvasFragment;
+import br.com.caelum.cadastro.modelo.Prova;
 
 public class ProvasActivity extends AppCompatActivity {
 
@@ -38,5 +39,27 @@ public class ProvasActivity extends AppCompatActivity {
 
     private boolean isLand() {
         return getResources().getBoolean(R.bool.land);
+    }
+
+    public void selecionaProva(Prova provaSelecionada) {
+        FragmentManager manager = getSupportFragmentManager();
+
+        if (isLand()) {
+
+            DetalhesProvaFragment detalhes = (DetalhesProvaFragment) manager.findFragmentById(R.id.provas_frame_direita);
+
+            detalhes.populaCampos(provaSelecionada);
+
+        } else {
+
+            FragmentTransaction transaction = manager.beginTransaction();
+
+            transaction.replace(R.id.provas_frame, DetalhesProvaFragment.com(provaSelecionada));
+
+            transaction.addToBackStack(null);
+
+            transaction.commit();
+
+        }
     }
 }
