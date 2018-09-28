@@ -8,4 +8,17 @@
         android:title="Média"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/menu_lista_provas"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="Provas"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/menu_lista_mapa"
+        android:icon="@android:drawable/ic_dialog_map"
+        android:title="Mapa"
+        app:showAsAction="always" />
+
 </menu>
