@@ -119,6 +119,11 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
                 return true;
 
+            case R.id.menu_lista_mapa:
+
+                Intent vaiParaMapa = new Intent(this, MapaActivity.class);
+                startActivity(vaiParaMapa);
+
         }
 
         return true;
